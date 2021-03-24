@@ -62,6 +62,4 @@ public class Voto {
 	public String toString() {
 		return "Esame " + nome + " Superato con " + voto + " il " + data;
 	}
-	
-	
 }
