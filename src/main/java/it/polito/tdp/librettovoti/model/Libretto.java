@@ -2,19 +2,24 @@ package it.polito.tdp.librettovoti.model;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Libretto {
 
 	private List<Voto> Voti ;
+	private Map<String, Voto> votiMap ; // identity map -> oggetto Voto
 	
 	public Libretto() {
-		Voti = new ArrayList<Voto>() ;
+		this.Voti = new ArrayList<Voto>() ;
+		this.votiMap = new LinkedHashMap<String, Voto>() ;
 	}
 	
 	public void add(Voto v) {
 		Voti.add(v);
+		this.votiMap.put(v.getNome(), v) ;
 	}
 	/*
 	public void stampaVotiUguali(int punteggio) {
@@ -67,6 +72,51 @@ public class Libretto {
 			}
 		}
 		return risultato;
+	}
+	
+	/**
+	 * Verifica che nel libretto c'è gia un voto con lo stesso esame
+	 * e la stessa votazione
+	 * @param voto
+	 * @return
+	 */
+	public boolean esisteDuplicato(Voto v) {
+		/*boolean trovato = false ;
+		for(Voto voto : Voti) {
+			if(voto.getNome().equals(v.getNome()) && voto.getVoto() == v.getVoto())
+				trovato = true ;
+		}
+		return trovato ;*/
+		Voto voto = votiMap.get(v.getNome()) ;
+		if( voto == null)
+			return false ;
+		if(voto.getVoto() == v.getVoto())
+			return true ;
+		else 
+			return false ;
+	}
+	
+	/**
+	 * Verifica se nel libretto c'è già un voto con lo stesso
+	 * votazione diversa.
+	 * @param v
+	 * @return
+	 */
+	public boolean esisteConflitto(Voto v) {
+	/*	boolean trovato = false ;
+		for(Voto voto : Voti) {
+			if(voto.getNome().equals(v.getNome()) && voto.getVoto() != v.getVoto())
+				trovato = true ;
+		}
+		return trovato ;
+		*/
+		Voto voto = votiMap.get(v.getNome()) ;
+		if( voto == null)
+			return false ;
+		if(voto.getVoto() != v.getVoto())
+			return true ;
+		else 
+			return false ;
 	}
 
 	public String toString() {

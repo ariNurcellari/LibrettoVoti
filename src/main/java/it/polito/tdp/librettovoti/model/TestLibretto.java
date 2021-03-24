@@ -16,14 +16,30 @@ public class TestLibretto {
 		libretto.add(new Voto("Chimica", 25, LocalDate.of(2019, 9, 15))) ;
 		
 		libretto.add(new Voto("Fisica 1", 28, LocalDate.of(2019, 7, 15))) ;
-		libretto.add(new Voto("Informatica", 24, LocalDate.of(2019, 9, 15))) ;
-	
+		libretto.add(new Voto("Informatica", 24, LocalDate.of(2019, 9, 15)));
+		
 		System.out.println(libretto);
 		
+		Voto analisi = libretto.cercaCorso("Analisi 1") ;
+		System.out.println(analisi);
+	
+		Voto analisi3 = libretto.cercaCorso("Analisi 3") ;
+		System.out.println(analisi3);
+	
 		List<Voto> venticinque = libretto.listaVotiUguali(25);
 		System.out.println(venticinque);
 		
 		Libretto librettoVenticinque = libretto.votiUguali(25) ;
 		System.out.println(librettoVenticinque);
+
+		Voto chimica = libretto.cercaCorso("Chimica") ;
+		Voto chimica_doppio = new Voto("Chimica", 25, LocalDate.of(2019, 9, 15)) ;
+		Voto chimica_conflitto = new Voto("Chimica", 29, LocalDate.of(2019, 9, 15)) ;
+		
+		System.out.println(chimica + " doppione di " +chimica_doppio + "? ->"+ libretto.esisteDuplicato(chimica_doppio));
+		System.out.println(chimica + " doppione di " +chimica_conflitto + "? ->"+ libretto.esisteDuplicato(chimica_conflitto));
+		System.out.println(chimica + " conflitto con " +chimica_doppio + "? ->"+ libretto.esisteConflitto(chimica_doppio));
+		System.out.println(chimica + " conflitto con " +chimica_conflitto + "? ->"+ libretto.esisteConflitto(chimica_conflitto));
+	
 	}
 }
